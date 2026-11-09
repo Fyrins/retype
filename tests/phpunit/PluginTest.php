@@ -25,6 +25,13 @@ class PluginTest extends WP_UnitTestCase {
 	const SPAN = '<span class="retype" data-retype-words="baker, potter">cheesemaker</span>';
 
 	/**
+	 * Markup the format saves when the word has its own settings.
+	 *
+	 * @var string
+	 */
+	const SPAN_WITH_SETTINGS = '<span class="retype" data-retype-words="baker, potter" data-retype-type="60" data-retype-hold="2500" data-retype-caret="var(--wp--preset--color--accent-1)">cheesemaker</span>';
+
+	/**
 	 * Starts every test from fresh script and style registries, with the
 	 * plugin's assets registered the way `init` registers them.
 	 */
@@ -201,7 +208,7 @@ class PluginTest extends WP_UnitTestCase {
 
 		$printed = get_echo( 'wp_print_scripts', array( array( Plugin::VIEW_HANDLE ) ) );
 
-		$this->assertStringContainsString( 'window.retypeDelays = {"type":100,"erase":40,"hold":60000};', $printed );
+		$this->assertStringContainsString( 'window.retypeDelays = {"type":100,"erase":20,"hold":60000};', $printed );
 		$this->assertMatchesRegularExpression( '#<script(?=[^>]*\sdefer[\s>=])[^>]*build/view\.js[^>]*>#', $printed );
 		$this->assertLessThan(
 			strpos( $printed, 'build/view.js' ),
@@ -228,9 +235,83 @@ class PluginTest extends WP_UnitTestCase {
 
 	/**
 	 * Authors without unfiltered_html go through KSES. The format has to
-	 * survive it without the plugin touching the allow list.
+	 * survive it without the plugin touching the allow list, settings of the
+	 * word included.
 	 */
 	public function test_the_saved_markup_survives_kses() {
 		$this->assertSame( self::SPAN, wp_kses_post( self::SPAN ) );
+
+		$this->assertSame( self::SPAN_WITH_SETTINGS, wp_kses_post( self::SPAN_WITH_SETTINGS ) );
+
+		$custom = '<span class="retype" data-retype-words="a" data-retype-caret="rgb(255 0 0 / 50%)">b</span>';
+		$this->assertSame( $custom, wp_kses_post( $custom ) );
+	}
+
+	/**
+	 * What the format is made of, and what only looks like it.
+	 *
+	 * @dataProvider data_markup
+	 *
+	 * @param string $html     Rendered markup.
+	 * @param bool   $expected Whether it contains the format.
+	 */
+	public function test_the_format_is_detected_from_its_markup( $html, $expected ) {
+		$this->assertSame( $expected, Plugin::contains_format( $html ) );
+	}
+
+	/**
+	 * Markup samples.
+	 *
+	 * @return array<string, array{0: string, 1: bool}>
+	 */
+	public function data_markup() {
+		return array(
+			'the format'              => array( '<p>Ask the ' . self::SPAN . '.</p>', true ),
+			'with settings'           => array( self::SPAN_WITH_SETTINGS, true ),
+			'among other classes'     => array( '<span class="x retype y" data-retype-words="a">b</span>', true ),
+			'upper case'              => array( '<SPAN CLASS="retype" DATA-RETYPE-WORDS="a">b</SPAN>', true ),
+			'empty list'              => array( '<span class="retype" data-retype-words="">b</span>', true ),
+			'escaped in a code block' => array( '<pre class="wp-block-code"><code>&lt;span class="retype" data-retype-words="a"&gt;b&lt;/span&gt;</code></pre>', false ),
+			'in a comment'            => array( '<p><!-- <span class="retype" data-retype-words="a">b</span> --></p>', false ),
+			'in an attribute value'   => array( '<p title=\'<span class="retype" data-retype-words="a">\'>b</p>', false ),
+			'in plain text'           => array( '<p>The data-retype-words attribute.</p>', false ),
+			'attribute without class' => array( '<span data-retype-words="a">b</span>', false ),
+			'class without attribute' => array( '<span class="retype">b</span>', false ),
+			'another class name'      => array( '<span class="retyped" data-retype-words="a">b</span>', false ),
+			'on another element'      => array( '<div class="retype" data-retype-words="a">b</div>', false ),
+		);
+	}
+
+	public function test_a_code_block_showing_the_markup_enqueues_nothing() {
+		do_blocks(
+			"<!-- wp:code -->\n<pre class=\"wp-block-code\"><code>&lt;span class=\"retype\" data-retype-words=\"a\"&gt;b&lt;/span&gt;</code></pre>\n<!-- /wp:code -->"
+		);
+
+		$this->assertFalse( wp_script_is( Plugin::VIEW_HANDLE, 'enqueued' ) );
+	}
+
+	public function test_the_editor_gets_no_delays_by_default() {
+		do_action( 'enqueue_block_editor_assets' );
+
+		$this->assertFalse( wp_scripts()->get_data( Plugin::EDITOR_HANDLE, 'before' ) );
+	}
+
+	/**
+	 * The popover shows the site delays as the defaults of each word.
+	 */
+	public function test_the_editor_gets_the_filtered_delays() {
+		add_filter(
+			'retype_delays',
+			static function () {
+				return array( 'type' => 90 );
+			}
+		);
+
+		do_action( 'enqueue_block_editor_assets' );
+		do_action( 'enqueue_block_editor_assets' );
+
+		$before = implode( "\n", array_filter( (array) wp_scripts()->get_data( Plugin::EDITOR_HANDLE, 'before' ) ) );
+
+		$this->assertSame( 1, substr_count( $before, 'window.retypeDelays = {"type":90,"erase":20,"hold":1200};' ) );
 	}
 }

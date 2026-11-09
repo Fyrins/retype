@@ -12,7 +12,9 @@
 	white-space: nowrap;
 }
 
-// Caret: a thin bar in the text color, blinking gently.
+// Caret: a thin bar, blinking gently. It takes the text color, slightly faded,
+// unless the word sets its own color: view.js then defines --retype-caret on
+// the span and adds .has-retype-caret, and the color is shown as chosen.
 .retype__word::after {
 	content: "";
 	display: inline-block;
@@ -20,9 +22,13 @@
 	block-size: 0.85em;
 	margin-inline-start: 0.08em;
 	vertical-align: -0.08em;
-	background: currentcolor;
+	background: var(--retype-caret, currentcolor);
 	opacity: 0.6;
 	animation: retype-blink 1.1s steps(1, end) infinite;
+}
+
+.has-retype-caret .retype__word::after {
+	opacity: 1;
 }
 
 @keyframes retype-blink {

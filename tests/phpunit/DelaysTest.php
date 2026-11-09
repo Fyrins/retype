@@ -19,8 +19,8 @@ class DelaysTest extends WP_UnitTestCase {
 	public function test_the_defaults_without_a_filter() {
 		$this->assertSame(
 			array(
-				'type'  => 70,
-				'erase' => 40,
+				'type'  => 40,
+				'erase' => 20,
 				'hold'  => 1200,
 			),
 			Delays::get()
@@ -39,8 +39,8 @@ class DelaysTest extends WP_UnitTestCase {
 
 		$this->assertSame(
 			array(
-				'type'  => 70,
-				'erase' => 40,
+				'type'  => 40,
+				'erase' => 20,
 				'hold'  => 3000,
 			),
 			Delays::get()

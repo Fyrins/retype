@@ -13,11 +13,14 @@ defined( 'ABSPATH' ) || exit;
  * Registers the editor and front-end assets, and loads the front-end ones only
  * on pages that contain the format.
  *
- * The format itself is saved as plain markup:
+ * The format itself is saved as plain markup, the last three attributes being
+ * optional settings of the word (delays in milliseconds, caret color):
  *
- *     <span class="retype" data-retype-words="baker, beekeeper">cheesemaker</span>
+ *     <span class="retype" data-retype-words="baker, beekeeper"
+ *         data-retype-type="60" data-retype-hold="2500"
+ *         data-retype-caret="var(--wp--preset--color--accent-1)">cheesemaker</span>
  *
- * Both attributes survive `wp_kses_post()` without any filter, because `class`
+ * Every attribute survives `wp_kses_post()` without any filter, because `class`
  * and `data-*` are global attributes in WordPress (`_wp_add_global_attributes()`).
  * Authors without `unfiltered_html` can therefore use the format, and the
  * plugin never touches the KSES allow list.
@@ -131,9 +134,14 @@ final class Plugin {
 	 * @return void
 	 */
 	public function enqueue_editor_script(): void {
-		if ( wp_script_is( self::EDITOR_HANDLE, 'registered' ) ) {
-			wp_enqueue_script( self::EDITOR_HANDLE );
+		if ( ! wp_script_is( self::EDITOR_HANDLE, 'registered' ) || wp_script_is( self::EDITOR_HANDLE, 'enqueued' ) ) {
+			return;
 		}
+
+		wp_enqueue_script( self::EDITOR_HANDLE );
+
+		// The popover shows the site delays as the defaults of each word.
+		self::add_delays_before( self::EDITOR_HANDLE );
 	}
 
 	/**
@@ -159,15 +167,44 @@ final class Plugin {
 	 * @return mixed
 	 */
 	public function maybe_enqueue_front( $block_content ) {
-		if (
-			! is_admin()
-			&& is_string( $block_content )
-			&& false !== strpos( $block_content, self::WORDS_ATTRIBUTE )
-		) {
+		if ( ! is_admin() && is_string( $block_content ) && self::contains_format( $block_content ) ) {
 			$this->enqueue_front();
 		}
 
 		return $block_content;
+	}
+
+	/**
+	 * Whether markup contains the format: a `span` element with the `retype`
+	 * class and the words attribute.
+	 *
+	 * The markup is read with the HTML API rather than searched as text, so the
+	 * same characters in a code block, where they are escaped, in a comment or
+	 * in an attribute value do not count. The text search first is only a fast
+	 * way out for the vast majority of blocks.
+	 *
+	 * @param string $html Rendered markup.
+	 * @return bool
+	 */
+	public static function contains_format( string $html ): bool {
+		if ( false === stripos( $html, self::WORDS_ATTRIBUTE ) ) {
+			return false;
+		}
+
+		$tags = new \WP_HTML_Tag_Processor( $html );
+
+		while ( $tags->next_tag(
+			array(
+				'tag_name'   => 'span',
+				'class_name' => 'retype',
+			)
+		) ) {
+			if ( null !== $tags->get_attribute( self::WORDS_ATTRIBUTE ) ) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	/**
@@ -187,6 +224,17 @@ final class Plugin {
 		wp_enqueue_script( self::VIEW_HANDLE );
 		wp_enqueue_style( self::VIEW_HANDLE );
 
+		self::add_delays_before( self::VIEW_HANDLE );
+	}
+
+	/**
+	 * Prints the filtered delays before a script, as a global, when they
+	 * differ from the defaults the script already knows.
+	 *
+	 * @param string $handle Script handle.
+	 * @return void
+	 */
+	private static function add_delays_before( string $handle ): void {
 		$delays = Delays::get();
 
 		if ( Delays::are_defaults( $delays ) ) {
@@ -198,7 +246,7 @@ final class Plugin {
 		 * could close the script element.
 		 */
 		wp_add_inline_script(
-			self::VIEW_HANDLE,
+			$handle,
 			'window.' . self::DELAYS_GLOBAL . ' = ' . wp_json_encode( $delays ) . ';',
 			'before'
 		);
