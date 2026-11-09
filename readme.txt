@@ -12,6 +12,8 @@ Select a word in the block editor, list a few others, and on your site the word 
 
 == Description ==
 
+https://www.youtube.com/watch?v=909NcozD1TU
+
 Retype adds one entry to the formatting toolbar of the block editor, in the "More" dropdown next to Highlight and Inline code. Select a word in a heading or a paragraph, choose Retype, type a few words separated by commas, and apply. The same popover can set, for that word only, the typing speed, the pause on each word and the color of the caret.
 
 On the front end the selected word is shown first. After a pause it is erased letter by letter, the next word of the list is typed in its place, and the cycle goes on. A thin caret blinks at the end of the word while it types.
