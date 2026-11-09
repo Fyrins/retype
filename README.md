@@ -19,6 +19,10 @@ Select a word in a heading or a paragraph, choose **Retype** in the "More" dropd
 
 ## What it looks like
 
+![In the block editor, the word baker is selected in the heading "Handmade by a baker in the hills". Retype is chosen in the More dropdown of the formatting toolbar, and its popover is filled in: the words potter, beekeeper, cheesemaker, weaver, a typing delay of 90 ms and a purple caret from the theme palette. After Apply and Save, the published page erases baker and types each word of the list in turn, behind a blinking purple caret, while "in the hills" moves along with the word.](.github/media/demo.gif)
+
+<em>Recorded on WordPress with Twenty Twenty-Five.</em>
+
 <table>
 <tr>
 <td width="50%" valign="top">
