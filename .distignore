@@ -16,6 +16,7 @@ node_modules
 package.json
 package-lock.json
 webpack.config.js
+vitest.config.mjs
 
 # Staging directory for the package itself.
 dist

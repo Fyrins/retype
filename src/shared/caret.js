@@ -38,7 +38,7 @@ const PRESET = /^var\(\s*--wp--preset--color--[a-z0-9-]+\s*\)$/i;
  * The value is applied with `style.setProperty()`, never written into markup,
  * so this is about keeping nonsense out rather than about escaping.
  *
- * @param {*} value Candidate color.
+ * @param {unknown} value Candidate color.
  * @return {string} The trimmed color, or an empty string when it is not accepted.
  */
 export function readCaretColor( value ) {

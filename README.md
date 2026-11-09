@@ -152,7 +152,7 @@ composer lint:php         # php -l over every PHP file
 composer test             # PHPUnit against a real WordPress, see CONTRIBUTING.md
 npm run lint:js           # ESLint with the WordPress config, plus Prettier
 npm run lint:style        # Stylelint
-npm run test:js           # Jest: words, delays, colors, graphemes, popover values, and the front-end script in jsdom
+npm run test:js           # Vitest: words, delays, colors, graphemes, popover values, and the front-end script in jsdom
 ```
 
 Plugin Check runs on the **built package**, in a directory named exactly `retype`, never on the source tree. CONTRIBUTING.md has the commands.

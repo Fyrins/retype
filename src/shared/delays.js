@@ -33,8 +33,8 @@ function confine( key, value ) {
 /**
  * Reads one delay from an untrusted value.
  *
- * @param {string} key `type`, `erase` or `hold`.
- * @param {*}      raw Candidate value: a number or a numeric string.
+ * @param {string}  key `type`, `erase` or `hold`.
+ * @param {unknown} raw Candidate value: a number or a numeric string.
  * @return {number|undefined} The bounded delay, or undefined when the value is not a finite number.
  */
 export function readDelay( key, raw ) {
@@ -54,7 +54,7 @@ export function readDelay( key, raw ) {
  * is not a finite number falls back, and the rest is rounded and confined to
  * its bounds.
  *
- * @param {*}                                           input    Candidate delays.
+ * @param {unknown}                                     input    Candidate delays.
  * @param {{type: number, erase: number, hold: number}} fallback Delays used for missing or invalid keys.
  * @return {{type: number, erase: number, hold: number}} Usable delays.
  */
