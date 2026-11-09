@@ -12,7 +12,7 @@ export const FORMAT_NAME = 'retype/retype';
  * changes nothing on the page once the plugin is gone.
  */
 export const formatSettings = {
-	title: __( 'Retype', 'retype' ),
+	title: __( 'Retype', 'fyrins-retype' ),
 	tagName: 'span',
 	className: 'retype',
 	attributes: {

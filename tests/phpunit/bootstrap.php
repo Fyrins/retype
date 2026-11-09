@@ -27,7 +27,7 @@ require_once $retype_tests_dir . '/includes/functions.php';
 tests_add_filter(
 	'muplugins_loaded',
 	static function () use ( $retype_root ) {
-		require $retype_root . '/retype.php';
+		require $retype_root . '/fyrins-retype.php';
 	}
 );
 

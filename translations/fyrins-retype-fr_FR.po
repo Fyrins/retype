@@ -6,9 +6,9 @@
 # from translate.wordpress.org. See CONTRIBUTING.md.
 msgid ""
 msgstr ""
-"Project-Id-Version: Retype 1.0.0\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/retype\n"
-"POT-Creation-Date: 2026-11-09T10:04:01+00:00\n"
+"Project-Id-Version: Fyrins Retype 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/fyrins-retype\n"
+"POT-Creation-Date: 2026-11-09T13:47:34+00:00\n"
 "PO-Revision-Date: 2026-11-09 11:30+0100\n"
 "Last-Translator: Alexandre Revire\n"
 "Language-Team: French (France)\n"
@@ -21,17 +21,17 @@ msgstr ""
 "X-Domain: retype\n"
 
 #. Plugin Name of the plugin
-#: retype.php build/editor.js:1
-msgid "Retype"
-msgstr "Retype"
+#: fyrins-retype.php
+msgid "Fyrins Retype"
+msgstr "Fyrins Retype"
 
 #. Plugin URI of the plugin
-#: retype.php
+#: fyrins-retype.php
 msgid "https://github.com/Fyrins/retype"
 msgstr "https://github.com/Fyrins/retype"
 
 #. Description of the plugin
-#: retype.php
+#: fyrins-retype.php
 msgid ""
 "A rich text format for the block editor. Select a word, list a few "
 "alternatives, and on the front end the word is erased and typed again, "
@@ -42,14 +42,18 @@ msgstr ""
 "lettre par lettre, en parcourant la liste."
 
 #. Author of the plugin
-#: retype.php
+#: fyrins-retype.php
 msgid "Alexandre Revire"
 msgstr "Alexandre Revire"
 
 #. Author URI of the plugin
-#: retype.php
+#: fyrins-retype.php
 msgid "https://alexandre-revire.fr"
 msgstr "https://alexandre-revire.fr"
+
+#: build/editor.js:1
+msgid "Retype"
+msgstr "Retype"
 
 #: build/editor.js:1
 msgid "Words to type, separated by commas"
@@ -68,7 +72,9 @@ msgstr "Délai de frappe par lettre (ms)"
 #. translators: %d: default delay per typed letter, in milliseconds.
 #: build/editor.js:2
 msgid "Lower is faster, and erasing follows in proportion. Default: %d ms."
-msgstr "Plus la valeur est basse, plus la frappe est rapide, et l’effacement suit en proportion. Par défaut : %d ms."
+msgstr ""
+"Plus la valeur est basse, plus la frappe est rapide, et l’effacement suit en "
+"proportion. Par défaut : %d ms."
 
 #: build/editor.js:2
 msgid "Pause on each word (s)"

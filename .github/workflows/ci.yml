@@ -203,23 +203,23 @@ jobs:
       # previous run left behind.
       - name: Assemble the package
         run: |
-          mkdir -p dist/retype
+          mkdir -p dist/fyrins-retype
           rsync -a --delete --delete-excluded \
-            --exclude-from=.distignore ./ dist/retype/
+            --exclude-from=.distignore ./ dist/fyrins-retype/
 
       - name: Show what is in the package
-        run: find dist/retype -type f | sort
+        run: find dist/fyrins-retype -type f | sort
 
       - name: Fail if a built file is missing from the package
         run: |
           for file in editor.js editor.asset.php editor.css view.js view.asset.php style-view.css; do
-            test -f "dist/retype/build/$file"
+            test -f "dist/fyrins-retype/build/$file"
           done
 
       - name: Run Plugin Check
         uses: WordPress/plugin-check-action@10857da14b6c2246d15402b3e69f777edcf8c12e # v1.1.9
         with:
-          build-dir: ./dist/retype
+          build-dir: ./dist/fyrins-retype
           categories: |
             general
             plugin_repo

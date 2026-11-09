@@ -116,11 +116,11 @@ export function RetypeEdit( {
 							__nextHasNoMarginBottom
 							label={ __(
 								'Words to type, separated by commas',
-								'retype'
+								'fyrins-retype'
 							) }
 							help={ __(
 								'The selected word shows first, then each word of the list, in a loop.',
-								'retype'
+								'fyrins-retype'
 							) }
 							value={ draft.words ?? '' }
 							onChange={ update( 'words' ) }
@@ -130,13 +130,13 @@ export function RetypeEdit( {
 							__nextHasNoMarginBottom
 							label={ __(
 								'Typing delay per letter (ms)',
-								'retype'
+								'fyrins-retype'
 							) }
 							help={ sprintf(
 								/* translators: %d: default delay per typed letter, in milliseconds. */
 								__(
 									'Lower is faster, and erasing follows in proportion. Default: %d ms.',
-									'retype'
+									'fyrins-retype'
 								),
 								site.type
 							) }
@@ -151,10 +151,13 @@ export function RetypeEdit( {
 						<RangeControl
 							__next40pxDefaultSize
 							__nextHasNoMarginBottom
-							label={ __( 'Pause on each word (s)', 'retype' ) }
+							label={ __(
+								'Pause on each word (s)',
+								'fyrins-retype'
+							) }
 							help={ sprintf(
 								/* translators: %s: default pause on each word, in seconds. */
-								__( 'Default: %s s.', 'retype' ),
+								__( 'Default: %s s.', 'fyrins-retype' ),
 								new Intl.NumberFormat(
 									document.documentElement.lang || undefined
 								).format( site.hold / 1000 )
@@ -169,7 +172,7 @@ export function RetypeEdit( {
 						/>
 						<div>
 							<BaseControl.VisualLabel id="retype-caret-label">
-								{ __( 'Caret color', 'retype' ) }
+								{ __( 'Caret color', 'fyrins-retype' ) }
 							</BaseControl.VisualLabel>
 							<ColorPalette
 								aria-labelledby="retype-caret-label"
@@ -185,13 +188,13 @@ export function RetypeEdit( {
 							>
 								{ __(
 									'Without a color, the caret takes the color of the text.',
-									'retype'
+									'fyrins-retype'
 								) }
 							</p>
 						</div>
 						<div style={ { display: 'flex', gap: '8px' } }>
 							<Button variant="primary" type="submit">
-								{ __( 'Apply', 'retype' ) }
+								{ __( 'Apply', 'fyrins-retype' ) }
 							</Button>
 							{ isActive && (
 								<Button
@@ -199,7 +202,7 @@ export function RetypeEdit( {
 									isDestructive
 									onClick={ remove }
 								>
-									{ __( 'Remove format', 'retype' ) }
+									{ __( 'Remove format', 'fyrins-retype' ) }
 								</Button>
 							) }
 						</div>
