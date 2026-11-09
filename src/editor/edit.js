@@ -26,12 +26,12 @@ import { attributesToDraft, draftToAttributes } from './settings';
  * On a word that already carries the format, the button reopens the popover
  * with the current values.
  *
- * @param {Object}   props
- * @param {boolean}  props.isActive         The caret is inside a retyped word.
- * @param {Object}   props.value            RichText value (text, formats, selection).
- * @param {Function} props.onChange         Replaces the RichText value.
- * @param {Object}   props.contentRef       Editable element, the popover anchor.
- * @param {Object}   props.activeAttributes Attributes of the active format.
+ * @param {Object}                  props
+ * @param {boolean}                 props.isActive         The caret is inside a retyped word.
+ * @param {Object}                  props.value            RichText value (text, formats, selection).
+ * @param {(value: Object) => void} props.onChange         Replaces the RichText value.
+ * @param {Object}                  props.contentRef       Editable element, the popover anchor.
+ * @param {Object}                  props.activeAttributes Attributes of the active format.
  */
 export function RetypeEdit( {
 	isActive,

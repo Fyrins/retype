@@ -44,8 +44,8 @@ function findTextHost( el ) {
  *
  * @param {HTMLElement}                                 el        The `.retype` span.
  * @param {{type: number, erase: number, hold: number}} base      Site delays.
- * @param {Function}                                    onDispose Called when the span leaves the document.
- * @return {Function|undefined} A function that stops the animation and restores the original content, or nothing if the span cannot be animated.
+ * @param {() => void}                                  onDispose Called when the span leaves the document.
+ * @return {(() => void)|undefined} A function that stops the animation and restores the original content, or nothing if the span cannot be animated.
  */
 function animate( el, base, onDispose ) {
 	const host = findTextHost( el );
