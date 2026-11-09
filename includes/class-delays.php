@@ -30,9 +30,9 @@ final class Delays {
 	 * @var array<string, int>
 	 */
 	const DEFAULTS = array(
-		'type'  => 70,
-		'erase' => 40,
-		'hold'  => 1800,
+		'type'  => 40,
+		'erase' => 20,
+		'hold'  => 1200,
 	);
 
 	/**
@@ -66,9 +66,9 @@ final class Delays {
 		 * @since 1.0.0
 		 *
 		 * @param array<string, int> $delays {
-		 *     @type int $type  Delay per letter while typing. Default 70.
-		 *     @type int $erase Delay per letter while erasing. Default 40.
-		 *     @type int $hold  Pause on each complete word. Default 1800.
+		 *     @type int $type  Delay per letter while typing. Default 40.
+		 *     @type int $erase Delay per letter while erasing. Default 20.
+		 *     @type int $hold  Pause on each complete word. Default 1200.
 		 * }
 		 */
 		$delays = apply_filters( 'retype_delays', self::DEFAULTS );

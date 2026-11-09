@@ -21,7 +21,7 @@ class DelaysTest extends WP_UnitTestCase {
 			array(
 				'type'  => 70,
 				'erase' => 40,
-				'hold'  => 1800,
+				'hold'  => 1200,
 			),
 			Delays::get()
 		);

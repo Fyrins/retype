@@ -26,9 +26,6 @@ function animate( el, delays ) {
 	// Array.from splits on code points, so an emoji or an accented letter
 	// typed as two code units is never cut in half.
 	const words = [ original, ...others ].map( ( word ) => Array.from( word ) );
-	const longest = [ original, ...others ].reduce( ( a, b ) =>
-		b.length > a.length ? b : a
-	);
 
 	// Screen readers read the original word, once. The word being typed is
 	// hidden from them, otherwise every letter would be a change to announce.
@@ -36,19 +33,12 @@ function animate( el, delays ) {
 	sr.className = 'retype__sr';
 	sr.textContent = original;
 
-	// The longest word, invisible, reserves the width so the line does not
-	// move while the visible word grows and shrinks.
-	const sizer = document.createElement( 'span' );
-	sizer.className = 'retype__sizer';
-	sizer.setAttribute( 'aria-hidden', 'true' );
-	sizer.textContent = longest;
-
 	const word = document.createElement( 'span' );
 	word.className = 'retype__word';
 	word.setAttribute( 'aria-hidden', 'true' );
 	word.textContent = original;
 
-	el.replaceChildren( sr, sizer, word );
+	el.replaceChildren( sr, word );
 	el.classList.add( 'is-animated' );
 
 	let index = 0;

@@ -11,14 +11,14 @@ describe( 'readDelays', () => {
 	it( 'keeps valid values and fills in missing keys', () => {
 		expect( readDelays( { type: 120 } ) ).toEqual( {
 			type: 120,
-			erase: 40,
-			hold: 1800,
+			erase: 20,
+			hold: 1200,
 		} );
 	} );
 
 	it( 'accepts numeric strings and rounds', () => {
 		expect( readDelays( { erase: ' 55.6 ', hold: '2500' } ) ).toEqual( {
-			type: 70,
+			type: 40,
 			erase: 56,
 			hold: 2500,
 		} );

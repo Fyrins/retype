@@ -56,16 +56,16 @@ The script and the stylesheet are registered on `init` and enqueued from `render
 
 No plugin makes a site accessible on its own. What this one does:
 
-- The animated markup is built by the script. The original word goes in a visually hidden span, read once; the word being typed and the width reservation are `aria-hidden`. The heading's accessible name stays the original sentence, which was checked in an accessibility tree snapshot while the animation ran.
+- The animated markup is built by the script. The original word goes in a visually hidden span, read once; the word being typed is `aria-hidden`. The heading's accessible name stays the original sentence, which was checked in an accessibility tree snapshot while the animation ran.
 - Under `prefers-reduced-motion: reduce` nothing is animated and the caret is not drawn. The script listens to the media query, so turning the setting on while reading restores the original word straight away.
 - Without JavaScript the span is a plain word.
 - The loop stops while the tab is hidden (`visibilitychange`) and while the word is off screen (`IntersectionObserver`).
 
 What it does not do: there is no pause control. A loop that starts on its own and runs for more than five seconds is the situation WCAG 2.2.2 (Pause, Stop, Hide) is about, so whether to animate a word, and where, is a decision for the site owner. The readme says so.
 
-### The line does not move
+### The text follows the writing
 
-The visible word and an invisible copy of the longest word share one grid cell, so the reserved width is the widest the word will ever be. The invisible copy also carries an invisible caret: without it, the line shifted by the width of the caret each time the longest word was complete, which was measured (255 px versus 261 px on the testbed heading) and fixed.
+The word being typed takes its real width at every letter, so the rest of the sentence moves along with it, the way it would if someone typed it. The word itself never breaks across two lines.
 
 ### Text only, never HTML
 
@@ -91,9 +91,9 @@ Delays of the animation, in milliseconds.
 add_filter(
 	'retype_delays',
 	function ( $delays ) {
-		$delays['type']  = 90;   // Per letter while typing. Default 70, kept between 10 and 2000.
-		$delays['erase'] = 30;   // Per letter while erasing. Default 40, kept between 10 and 2000.
-		$delays['hold']  = 2500; // Pause on each complete word. Default 1800, kept between 200 and 60000.
+		$delays['type']  = 90;   // Per letter while typing. Default 40, kept between 10 and 2000.
+		$delays['erase'] = 30;   // Per letter while erasing. Default 20, kept between 10 and 2000.
+		$delays['hold']  = 2500; // Pause on each complete word. Default 1200, kept between 200 and 60000.
 
 		return $delays;
 	}

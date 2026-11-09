@@ -21,7 +21,8 @@ First release.
 - Front-end animation: the selected word is shown first, then erased and
   retyped letter by letter with each word of the list, in a loop, with a
   blinking caret.
-- Width of the longest word reserved, so the surrounding text does not move.
+- The animated word takes its real width, so the text that follows moves along
+  with the writing.
 - Animation paused while the tab is hidden or the word is off screen.
 - Original word given to screen readers once, the typed letters hidden from
   them, and no animation under `prefers-reduced-motion: reduce`, including when

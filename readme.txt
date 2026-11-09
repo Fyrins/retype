@@ -22,7 +22,7 @@ There is no settings page, no option in your database, no account and no outgoin
 
 **How it behaves**
 
-* The line does not jump. The space of the longest word is reserved, so the text around the animated word stays where it is.
+* The word takes its real width as it is typed, so the text that follows it moves along with the writing.
 * The animation pauses when the browser tab is hidden or the word is scrolled out of view, and resumes when it comes back.
 * Nothing loads on pages that do not use the format. Where it is used, the front end gets a script of about 3 KB, loaded with `defer` in the footer, and a stylesheet under 1 KB.
 * The words are inserted as text, never as HTML.
@@ -78,9 +78,9 @@ The one you selected in the editor. It is also the word screen readers read and 
 Yes, with the `retype_delays` filter, in your theme's `functions.php` or a small plugin of your own. Values are in milliseconds:
 
 `add_filter( 'retype_delays', function ( $delays ) {
-	$delays['type']  = 90;   // per letter while typing, default 70
-	$delays['erase'] = 30;   // per letter while erasing, default 40
-	$delays['hold']  = 2500; // pause on each word, default 1800
+	$delays['type']  = 90;   // per letter while typing, default 40
+	$delays['erase'] = 30;   // per letter while erasing, default 20
+	$delays['hold']  = 2500; // pause on each word, default 1200
 	return $delays;
 } );`
 

@@ -3,9 +3,9 @@
  * which only prints a value when it differs from these.
  */
 export const DEFAULT_DELAYS = Object.freeze( {
-	type: 70,
-	erase: 40,
-	hold: 1800,
+	type: 40,
+	erase: 20,
+	hold: 1200,
 } );
 
 /**

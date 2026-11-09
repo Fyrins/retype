@@ -104,7 +104,7 @@ With `WP_DEBUG` and `WP_DEBUG_LOG` on, front end and editor, in English and in a
 - the script and the stylesheet are on that page and not on a page without the format;
 - the heading's accessible name is the original sentence while the word animates;
 - with reduced motion emulated, the original word stays and nothing blinks;
-- the span's width does not change during a whole cycle;
+- the text after the word follows it as it is typed and erased, and the word never breaks across two lines;
 - with the plugin deactivated, every block that used the format is still valid in the editor.
 
 ## Translations
