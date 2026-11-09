@@ -8,21 +8,20 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Retype 1.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/retype\n"
+"POT-Creation-Date: 2026-11-09T10:04:01+00:00\n"
+"PO-Revision-Date: 2026-11-09 11:30+0100\n"
 "Last-Translator: Alexandre Revire\n"
 "Language-Team: French (France)\n"
 "Language: fr_FR\n"
-"Plural-Forms: nplurals=2; plural=n > 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-11-09T08:40:10+00:00\n"
-"PO-Revision-Date: 2026-11-09 10:00+0100\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
 "X-Generator: WP-CLI 2.10.0\n"
 "X-Domain: retype\n"
 
 #. Plugin Name of the plugin
-#: retype.php
-#: build/editor.js:1
+#: retype.php build/editor.js:1
 msgid "Retype"
 msgstr "Retype"
 
@@ -33,8 +32,14 @@ msgstr "https://github.com/Fyrins/retype"
 
 #. Description of the plugin
 #: retype.php
-msgid "A rich text format for the block editor. Select a word, list a few alternatives, and on the front end the word is erased and typed again, letter by letter, cycling through the list."
-msgstr "Un format de texte riche pour l’éditeur de blocs. Sélectionnez un mot, indiquez quelques variantes, et sur le site le mot s’efface puis se retape, lettre par lettre, en parcourant la liste."
+msgid ""
+"A rich text format for the block editor. Select a word, list a few "
+"alternatives, and on the front end the word is erased and typed again, "
+"letter by letter, cycling through the list."
+msgstr ""
+"Un format de texte riche pour l’éditeur de blocs. Sélectionnez un mot, "
+"indiquez quelques variantes, et sur le site le mot s’efface puis se retape, "
+"lettre par lettre, en parcourant la liste."
 
 #. Author of the plugin
 #: retype.php
@@ -52,12 +57,40 @@ msgstr "Mots à taper, séparés par des virgules"
 
 #: build/editor.js:1
 msgid "The selected word shows first, then each word of the list, in a loop."
-msgstr "Le mot sélectionné s’affiche en premier, puis chaque mot de la liste, en boucle."
+msgstr ""
+"Le mot sélectionné s’affiche en premier, puis chaque mot de la liste, en "
+"boucle."
 
 #: build/editor.js:1
+msgid "Typing delay per letter (ms)"
+msgstr "Délai de frappe par lettre (ms)"
+
+#. translators: %d: default delay per typed letter, in milliseconds.
+#: build/editor.js:2
+msgid "Lower is faster, and erasing follows in proportion. Default: %d ms."
+msgstr "Plus la valeur est basse, plus la frappe est rapide, et l’effacement suit en proportion. Par défaut : %d ms."
+
+#: build/editor.js:2
+msgid "Pause on each word (s)"
+msgstr "Pause sur chaque mot (s)"
+
+#. translators: %s: default pause on each word, in seconds.
+#: build/editor.js:3
+msgid "Default: %s s."
+msgstr "Par défaut : %s s."
+
+#: build/editor.js:3
+msgid "Caret color"
+msgstr "Couleur du curseur"
+
+#: build/editor.js:3
+msgid "Without a color, the caret takes the color of the text."
+msgstr "Sans couleur, le curseur prend la couleur du texte."
+
+#: build/editor.js:3
 msgid "Apply"
 msgstr "Appliquer"
 
-#: build/editor.js:1
+#: build/editor.js:3
 msgid "Remove format"
 msgstr "Retirer le format"
