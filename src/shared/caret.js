@@ -1,11 +1,29 @@
 const HEX = /^#(?:[0-9a-f]{3,4}|[0-9a-f]{6}|[0-9a-f]{8})$/i;
 
-// One number with an optional unit, `none`, or a separator, repeated. No
-// parenthesis, quote, colon or semicolon can get through.
-const COMPONENTS =
-	/^(?:\s*(?:[-+]?(?:\d+\.?\d*|\.\d+)(?:e[-+]?\d+)?(?:%|deg|grad|rad|turn)?|none|,|\/))+\s*$/i;
+// One component of rgb() or hsl(): a number with an optional unit, or `none`.
+// Anchored and unambiguous, and only ever run on one short token, so it
+// cannot backtrack.
+const COMPONENT =
+	/^[-+]?(?:\d+(?:\.\d+)?|\.\d+)(?:e[-+]?\d+)?(?:%|deg|grad|rad|turn)?$|^none$/i;
 
-const FUNCTION = /^(rgba?|hsla?)\((.*)\)$/i;
+const FUNCTION = /^(?:rgba?|hsla?)\(([^()]*)\)$/i;
+
+/**
+ * Whether the inside of rgb() or hsl() is three or four valid components,
+ * separated by spaces, commas or a slash.
+ *
+ * @param {string} inner Text between the parentheses.
+ * @return {boolean} True when every component is valid.
+ */
+function validComponents( inner ) {
+	const parts = inner.split( /[\s,/]+/ ).filter( ( part ) => part !== '' );
+
+	return (
+		parts.length >= 3 &&
+		parts.length <= 4 &&
+		parts.every( ( part ) => COMPONENT.test( part ) )
+	);
+}
 
 const PRESET = /^var\(\s*--wp--preset--color--[a-z0-9-]+\s*\)$/i;
 
@@ -24,7 +42,7 @@ const PRESET = /^var\(\s*--wp--preset--color--[a-z0-9-]+\s*\)$/i;
  * @return {string} The trimmed color, or an empty string when it is not accepted.
  */
 export function readCaretColor( value ) {
-	if ( typeof value !== 'string' || value.length > 100 ) {
+	if ( typeof value !== 'string' || value.length > 64 ) {
 		return '';
 	}
 
@@ -34,7 +52,7 @@ export function readCaretColor( value ) {
 	if (
 		HEX.test( color ) ||
 		PRESET.test( color ) ||
-		( fn && COMPONENTS.test( fn[ 2 ] ) )
+		( fn && validComponents( fn[ 1 ] ) )
 	) {
 		return color;
 	}
