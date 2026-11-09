@@ -1,0 +1,39 @@
+# Patterns are plain names, without leading or trailing slashes. Every reader
+# of this file understands that form: rsync in the deploy action and in CI, and
+# every version of `wp dist-archive` (2.x ignores anchored patterns silently).
+# The package holds no nested directory with any of these names.
+
+# Every hidden file and directory, first and without exception. A tool that
+# drops a cache or a log directory at the root of the plugin must not be able to
+# leak it into a published release, and Plugin Check does not always catch it.
+.*
+
+# Sources and build tooling. The package ships build/, which is what WordPress
+# loads; the sources live on GitHub and readme.txt says where, as guideline 4
+# requires.
+src
+node_modules
+package.json
+package-lock.json
+webpack.config.js
+
+# Staging directory for the package itself.
+dist
+
+# Development tooling and repository paperwork. The published package carries
+# readme.txt, which is what the plugin directory reads.
+docs
+scripts
+tests
+vendor
+composer.json
+composer.lock
+phpcs.xml.dist
+phpunit.xml.dist
+CHANGELOG.md
+CONTRIBUTING.md
+README.md
+
+# Translations prepared for translate.wordpress.org. Hosted plugins get their
+# language packs from there and must not ship .po, .mo or JSON files.
+translations

@@ -1,0 +1,29 @@
+{
+    "name": "fyrins/retype",
+    "description": "Retype a word in place, letter by letter, from a list you type in the block editor.",
+    "type": "wordpress-plugin",
+    "license": "GPL-2.0-or-later",
+    "minimum-stability": "stable",
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        },
+        "platform": {
+            "php": "7.4.33"
+        }
+    },
+    "require-dev": {
+        "dealerdirect/phpcodesniffer-composer-installer": "^1.2",
+        "wp-coding-standards/wpcs": "^3.4",
+        "phpcompatibility/phpcompatibility-wp": "^2.1",
+        "wp-phpunit/wp-phpunit": "^7.1",
+        "yoast/phpunit-polyfills": "^4.0",
+        "phpunit/phpunit": "^9.6"
+    },
+    "scripts": {
+        "lint": "phpcs",
+        "lint:fix": "phpcbf",
+        "lint:php": "find . -path ./vendor -prune -o -path ./node_modules -prune -o -name '*.php' -print0 | xargs -0 -n1 php -l",
+        "test": "phpunit"
+    }
+}

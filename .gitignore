@@ -1,0 +1,20 @@
+# Development tooling, never published.
+/vendor/
+/node_modules/
+
+# Built scripts and styles. Produced by `npm run build`, assembled into the
+# package by CI, and deliberately not committed: a bundle diff is unreadable
+# and it drifts from the source the first time someone forgets to rebuild.
+/build/
+
+# Package assembled for the plugin directory, rebuilt on demand.
+/dist/
+
+# Local working notes, never part of the repository.
+/docs/
+
+# Left behind by tools.
+/.phpunit.result.cache
+/.playwright-mcp/
+.DS_Store
+*.log

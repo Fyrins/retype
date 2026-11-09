@@ -1,0 +1,88 @@
+<?xml version="1.0"?>
+<ruleset name="Retype">
+	<description>Coding standards for the Retype plugin.</description>
+
+	<file>.</file>
+
+	<exclude-pattern>/vendor/*</exclude-pattern>
+	<exclude-pattern>/node_modules/*</exclude-pattern>
+	<exclude-pattern>/docs/*</exclude-pattern>
+	<exclude-pattern>/dist/*</exclude-pattern>
+
+	<!--
+		build/ holds generated output. The .asset.php files are written by
+		webpack, so they are not ours to format and not ours to fix.
+	-->
+	<exclude-pattern>/build/*</exclude-pattern>
+
+	<arg name="basepath" value="."/>
+	<arg name="extensions" value="php"/>
+	<arg name="parallel" value="8"/>
+	<arg name="colors"/>
+	<arg value="sp"/>
+
+	<!--
+		The plugin targets WordPress 6.6, the first release that registers the
+		react-jsx-runtime script the compiled editor bundle depends on, and PHP
+		7.4 and up, WordPress's own floor. Declaring both here keeps the sniffs
+		about deprecated functions and about newer syntax honest.
+	-->
+	<config name="minimum_wp_version" value="6.6"/>
+	<config name="testVersion" value="7.4-"/>
+
+	<rule ref="WordPress"/>
+
+	<rule ref="WordPress.NamingConventions.PrefixAllGlobals">
+		<properties>
+			<property name="prefixes" type="array">
+				<element value="retype"/>
+				<element value="RETYPE"/>
+				<element value="Retype"/>
+			</property>
+		</properties>
+	</rule>
+
+	<rule ref="WordPress.WP.I18n">
+		<properties>
+			<property name="text_domain" type="array">
+				<element value="retype"/>
+			</property>
+		</properties>
+	</rule>
+
+	<rule ref="PHPCompatibilityWP"/>
+
+	<!--
+		The test configuration defines the constants the WordPress test library
+		expects (ABSPATH, DB_NAME, WP_TESTS_DOMAIN...). Their names are imposed,
+		so they cannot carry the plugin prefix.
+	-->
+	<rule ref="WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedConstantFound">
+		<exclude-pattern>/tests/phpunit/wp-tests-config\.php</exclude-pattern>
+	</rule>
+
+	<!--
+		PHPUnit test methods are named test_*, and test classes follow the
+		PHPUnit convention of one Test class per file rather than the
+		class-*.php naming of the plugin code.
+	-->
+	<rule ref="WordPress.Files.FileName">
+		<exclude-pattern>/tests/*</exclude-pattern>
+	</rule>
+
+	<!--
+		Test code is held to the same standard, minus three rules that do not
+		fit it: test method names describe the test, so a doc comment would
+		repeat them; the tests reset the script and style registries between
+		cases; and they fire core hooks, whose names are not ours to prefix.
+	-->
+	<rule ref="Squiz.Commenting.FunctionComment.Missing">
+		<exclude-pattern>/tests/*</exclude-pattern>
+	</rule>
+	<rule ref="WordPress.WP.GlobalVariablesOverride.Prohibited">
+		<exclude-pattern>/tests/*</exclude-pattern>
+	</rule>
+	<rule ref="WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound">
+		<exclude-pattern>/tests/*</exclude-pattern>
+	</rule>
+</ruleset>
