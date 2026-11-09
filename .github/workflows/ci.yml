@@ -1,0 +1,231 @@
+name: CI
+
+# `push` on main covers a direct commit and a merge; `pull_request` without a
+# branch filter covers every proposal, whatever branch it comes from. A workflow
+# that only listens to one of the two silently never runs on the branch you
+# actually work on. `workflow_call` lets the deploy workflow run this whole
+# suite, unchanged, before it publishes anything.
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
+  workflow_call:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+# Every action is pinned to a commit SHA. A tag is a movable reference, and the
+# deploy workflow runs this file with the wordpress.org credentials in reach.
+# Dependabot proposes the updates.
+jobs:
+  syntax:
+    name: Syntax, PHP ${{ matrix.php }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        # The floor declared in the plugin header, and every version above it
+        # that still gets security support.
+        php: ['7.4', '8.0', '8.1', '8.2', '8.3', '8.4']
+    steps:
+      - name: Check out
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962 # 2.40.0
+        with:
+          php-version: ${{ matrix.php }}
+          coverage: none
+          tools: none
+
+      - name: Lint every PHP file
+        run: |
+          find . -path ./vendor -prune -o -path ./node_modules -prune -o -name '*.php' -print0 \
+            | xargs -0 -n1 -P4 php -l
+
+  coding-standards:
+    name: Coding standards
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962 # 2.40.0
+        with:
+          php-version: '8.3'
+          coverage: none
+          tools: cs2pr
+
+      - name: Install dependencies
+        uses: ramsey/composer-install@65e4f84970763564f46a70b8a54b90d033b3bdda # 4.0.0
+
+      # The project ruleset sets testVersion to 7.4- and minimum_wp_version to
+      # 6.6, so PHPCompatibilityWP and the deprecation sniffs check against the
+      # versions the plugin actually claims to support.
+      - name: Run PHPCS
+        run: vendor/bin/phpcs --report-full --report-checkstyle=./phpcs-report.xml
+
+      - name: Annotate the diff
+        if: ${{ always() }}
+        run: cs2pr ./phpcs-report.xml
+
+  javascript:
+    name: JavaScript
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Set up Node
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint scripts
+        run: npm run lint:js
+
+      - name: Lint styles
+        run: npm run lint:style
+
+      - name: Unit tests
+        run: npm run test:js
+
+      - name: Build
+        run: npm run build
+
+  phpunit:
+    name: PHPUnit, PHP ${{ matrix.php }}, WordPress latest
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        php: ['7.4', '8.3']
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: retype_tests
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping -proot"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=10
+    env:
+      WP_CORE_DIR: /tmp/wordpress
+      WP_TESTS_DB_HOST: 127.0.0.1:3306
+      WP_TESTS_DB_NAME: retype_tests
+      WP_TESTS_DB_USER: root
+      WP_TESTS_DB_PASSWORD: root
+    steps:
+      - name: Check out
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962 # 2.40.0
+        with:
+          php-version: ${{ matrix.php }}
+          coverage: none
+          extensions: mysqli
+          tools: wp-cli
+
+      - name: Install PHP dependencies
+        uses: ramsey/composer-install@65e4f84970763564f46a70b8a54b90d033b3bdda # 4.0.0
+
+      # The tests load the built assets, exactly as WordPress does: a missing
+      # build/ is a plugin that registers nothing.
+      - name: Set up Node
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Build
+        run: |
+          npm ci
+          npm run build
+
+      - name: Download WordPress
+        run: wp core download --path="$WP_CORE_DIR" --version=latest
+
+      - name: Run PHPUnit
+        run: composer test
+
+  plugin-check:
+    name: Plugin Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Set up Node
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: '22'
+          cache: npm
+
+      # build/ is not committed, so it has to exist before the package is
+      # assembled. Checking the plugin without it would check a plugin whose
+      # scripts are missing.
+      - name: Install dependencies and build
+        run: |
+          npm ci
+          npm run build
+
+      # Plugin Check has to look at the package, not at the working tree. Run on
+      # the source it reports the development files, and the directory name has
+      # to be exactly the slug because that is what it infers the text domain
+      # from. --delete-excluded is what makes a rebuild clean: without it rsync
+      # protects excluded files from deletion and the target keeps whatever the
+      # previous run left behind.
+      - name: Assemble the package
+        run: |
+          mkdir -p dist/retype
+          rsync -a --delete --delete-excluded \
+            --exclude-from=.distignore ./ dist/retype/
+
+      - name: Show what is in the package
+        run: find dist/retype -type f | sort
+
+      - name: Fail if a built file is missing from the package
+        run: |
+          for file in editor.js editor.asset.php editor.css view.js view.asset.php style-view.css; do
+            test -f "dist/retype/build/$file"
+          done
+
+      - name: Run Plugin Check
+        uses: WordPress/plugin-check-action@10857da14b6c2246d15402b3e69f777edcf8c12e # v1.1.9
+        with:
+          build-dir: ./dist/retype
+          categories: |
+            general
+            plugin_repo
+            security
+            performance
+            accessibility
+          include-experimental: true
+          # Nothing is tolerated, warnings included.
+          strict: true

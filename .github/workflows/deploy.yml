@@ -1,0 +1,126 @@
+name: Deploy to wordpress.org
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: read
+
+jobs:
+  # The whole CI suite, unchanged, against the tagged commit. Nothing is
+  # published unless all of it passes.
+  ci:
+    name: CI
+    uses: ./.github/workflows/ci.yml
+
+  deploy:
+    name: Publish
+    needs: ci
+    runs-on: ubuntu-latest
+    permissions:
+      # Creating the GitHub release, nothing else.
+      contents: write
+    # Publishing needs an approval in the Actions tab, and only v* tags may
+    # deploy: both rules live in the wordpress-org environment settings, and
+    # the SVN secrets live in that environment. Without this key none of it
+    # would apply.
+    environment:
+      name: wordpress-org
+      url: https://wordpress.org/plugins/retype/
+    steps:
+      # Pinned to a commit SHA, like every action here: this job holds the SVN
+      # credentials, and a tag is a movable reference. Full history, so the tag
+      # can be checked against main. No credentials left in .git/config.
+      - name: Check out
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      # A publication on wordpress.org cannot be taken back. A tag pushed from
+      # an unmerged branch must not reach it.
+      - name: Refuse a tag whose commit is not on main
+        run: |
+          set -euo pipefail
+          if ! git merge-base --is-ancestor "$GITHUB_SHA" origin/main; then
+            echo "::error::$GITHUB_SHA is not on main. Merge first, then tag."
+            exit 1
+          fi
+
+      # The version lives in five places. This runs before anything is
+      # published and fails the whole job rather than warning about it.
+      - name: Check that every version agrees with the tag
+        env:
+          TAG_NAME: ${{ github.ref_name }}
+        run: scripts/check-versions.sh . "$TAG_NAME"
+
+      # build/ is not in the repository, so it has to be built here. Without
+      # this step the action would publish a package with no scripts, and the
+      # format would never appear for anyone who installed the release.
+      - name: Set up Node
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Build
+        run: |
+          npm ci
+          npm run build
+
+      - name: Refuse to publish without the built files
+        run: |
+          set -euo pipefail
+          for file in editor.js editor.asset.php editor.css view.js view.asset.php style-view.css; do
+            test -f "build/$file"
+          done
+
+      # The action reads .distignore itself to build what it commits, which
+      # includes build/ and excludes src/, and pushes .wordpress-org/ to the
+      # assets/ directory of the SVN repository. BUILD_DIR is deliberately not
+      # set: it would make the action ignore .distignore entirely.
+      #
+      # The two secrets are created by hand by the maintainer, in the
+      # wordpress-org environment; see CONTRIBUTING.md. Until they exist this
+      # step fails, which is the correct outcome.
+      - name: Deploy to the plugin directory
+        uses: 10up/action-wordpress-plugin-deploy@54bd289b8525fd23a5c365ec369185f2966529c2 # 2.3.0
+        env:
+          SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
+          SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
+          SLUG: retype
+
+      # Only after the directory has the release, so a failed publish does not
+      # leave a GitHub release pointing at something that was never shipped.
+      - name: Create the GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG_NAME: ${{ github.ref_name }}
+        run: |
+          set -euo pipefail
+
+          TAG_VERSION="${TAG_NAME#v}"
+
+          # Everything between this version's heading and the next one. The
+          # heading is matched literally: a version is not a regular expression.
+          NOTES=$(awk -v v="## [$TAG_VERSION]" '
+            index($0, v) == 1 { found = 1; next }
+            found && /^## \[/   { exit }
+            found               { print }
+          ' CHANGELOG.md)
+
+          if [[ -z "${NOTES//[[:space:]]/}" ]]; then
+            echo "::error::No changelog body found for $TAG_VERSION."
+            exit 1
+          fi
+
+          printf '%s\n\nOn the plugin directory: https://wordpress.org/plugins/retype/\n' \
+            "$NOTES" > "$RUNNER_TEMP/notes.md"
+
+          gh release create "$TAG_NAME" \
+            --repo "$GITHUB_REPOSITORY" \
+            --title "$TAG_NAME" \
+            --notes-file "$RUNNER_TEMP/notes.md" \
+            --verify-tag
