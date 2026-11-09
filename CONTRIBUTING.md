@@ -6,8 +6,8 @@ Thanks for looking. This is a small plugin with a narrow scope, and most of what
 
 Read the **Design decisions** section of [README.md](README.md). These are load-bearing, and a change that breaks one will be declined regardless of how well it is written:
 
-1. **The saved markup stays a plain span** with a class and a data attribute. Nothing that would need a KSES exception, and nothing that would invalidate a block once the plugin is gone.
-2. **Text goes in with `textContent`.** The words are never parsed as HTML.
+1. **The saved markup stays a plain span** with a class and data attributes. Nothing that would need a KSES exception, and nothing that would invalidate a block once the plugin is gone.
+2. **Text goes in as text nodes.** The words are never parsed as HTML, and the caret color is validated, then applied with `style.setProperty()`.
 3. **The original word is what assistive technology gets**, and nothing moves under `prefers-reduced-motion: reduce`.
 4. **The front-end assets load only where the format is used**, from `render_block`.
 5. **The toolchain is `@wordpress/scripts` and nothing else.** The `@wordpress/*` packages are devDependencies, externalised by webpack to the `wp.*` globals; nothing from `node_modules` ships.
@@ -103,7 +103,8 @@ With `WP_DEBUG` and `WP_DEBUG_LOG` on, front end and editor, in English and in a
 
 - the script and the stylesheet are on that page and not on a page without the format;
 - the heading's accessible name is the original sentence while the word animates;
-- with reduced motion emulated, the original word stays and nothing blinks;
+- with reduced motion emulated, the original word stays and nothing blinks, and switching it on mid-animation restores the span's original markup exactly;
+- the popover reopens a formatted word with its words, delays and caret color, and the front end uses them;
 - the text after the word follows it as it is typed and erased, and the word never breaks across two lines;
 - with the plugin deactivated, every block that used the format is still valid in the editor.
 

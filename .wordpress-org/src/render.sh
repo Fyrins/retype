@@ -1,6 +1,13 @@
 #!/usr/bin/env bash
 # Regenerates the directory banners and icons from the HTML sources in this
 # directory. macOS: needs Google Chrome and sips.
+#
+# The screenshots are not rendered from here: they are captures of a disposable
+# WordPress (Twenty Twenty-Five, site renamed "Hillside Studio", no URL on
+# screen) taken with Playwright. screenshot-1.png: the editor at 1280x960 with
+# the popover reopened on a formatted word. screenshot-2.png: the front end at
+# 1280x720, logged out, with page.clock driving the timers to stop on "pot" and
+# the caret blink paused so the caret is visible.
 set -euo pipefail
 cd "$(dirname "$0")"
 CHROME="${CHROME:-/Applications/Google Chrome.app/Contents/MacOS/Google Chrome}"

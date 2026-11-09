@@ -12,7 +12,7 @@ Select a word in the block editor, list a few others, and on your site the word 
 
 == Description ==
 
-Retype adds one entry to the formatting toolbar of the block editor, in the "More" dropdown next to Highlight and Inline code. Select a word in a heading or a paragraph, choose Retype, type a few words separated by commas, and apply.
+Retype adds one entry to the formatting toolbar of the block editor, in the "More" dropdown next to Highlight and Inline code. Select a word in a heading or a paragraph, choose Retype, type a few words separated by commas, and apply. The same popover can set, for that word only, the typing speed, the pause on each word and the color of the caret.
 
 On the front end the selected word is shown first. After a pause it is erased letter by letter, the next word of the list is typed in its place, and the cycle goes on. A thin caret blinks at the end of the word while it types.
 
@@ -23,8 +23,10 @@ There is no settings page, no option in your database, no account and no outgoin
 **How it behaves**
 
 * The word takes its real width as it is typed, so the text that follows it moves along with the writing.
+* A word that is entirely bold, italic or a link keeps that formatting while it is retyped. A word formatted only in part is left still.
+* Words added to the page after it loads, by a "load more" button for instance, are animated too.
 * The animation pauses when the browser tab is hidden or the word is scrolled out of view, and resumes when it comes back.
-* Nothing loads on pages that do not use the format. Where it is used, the front end gets a script of about 3 KB, loaded with `defer` in the footer, and a stylesheet under 1 KB.
+* Nothing loads on pages that do not use the format. Where it is used, the front end gets a script of about 5 KB, loaded with `defer` in the footer, and a stylesheet under 1 KB.
 * The words are inserted as text, never as HTML.
 * The saved markup is a plain `<span>` with a class and a data attribute. If you deactivate the plugin, the selected word simply stays in the sentence, and no block is invalidated.
 
@@ -38,9 +40,9 @@ No plugin can make a site accessible on its own, and this one does not claim to.
 
 The animation loops for as long as the word is on screen, and the plugin offers no pause button. Moving content that starts on its own is something to use sparingly: one animated word per page, short words, and not in the middle of text people need to read. Whether it fits your site and its obligations is your call.
 
-**Timing**
+**Timing and caret color**
 
-The typing speed, the erasing speed and the pause on each word are set in code, with the `retype_delays` filter. See the FAQ.
+Each word can have its own typing speed, pause and caret color, set in the popover. Words without settings follow the site defaults, which a developer can change with the `retype_delays` filter. See the FAQ.
 
 **Source code and build**
 
@@ -75,7 +77,9 @@ The one you selected in the editor. It is also the word screen readers read and 
 
 = Can I change the speed? =
 
-Yes, with the `retype_delays` filter, in your theme's `functions.php` or a small plugin of your own. Values are in milliseconds:
+For one word, in the popover: "Typing delay per letter" is in milliseconds, lower is faster, and erasing speeds up or slows down in proportion. "Pause on each word" is in seconds. Reset brings a setting back to the site default.
+
+For the whole site, use the `retype_delays` filter, in your theme's `functions.php` or a small plugin of your own. Values are in milliseconds:
 
 `add_filter( 'retype_delays', function ( $delays ) {
 	$delays['type']  = 90;   // per letter while typing, default 40
@@ -86,7 +90,19 @@ Yes, with the `retype_delays` filter, in your theme's `functions.php` or a small
 
 Missing keys keep their default. `type` and `erase` are kept between 10 and 2000, `hold` between 200 and 60000, and anything that is not a number falls back to the default.
 
-A script of your own can also set `window.retypeDelays` before the plugin's script runs, with the same keys and the same limits.
+A script of your own can also set `window.retypeDelays` before the plugin's script runs, with the same keys and the same limits. The settings of a word in the popover take precedence over both.
+
+= Can the caret have its own color? =
+
+Yes. The popover offers the colors of your theme's palette. A palette color is saved as a reference to the theme color, so the caret follows it if the theme changes it. Clear the color and the caret takes the color of the text.
+
+= Where are the settings of a word stored? =
+
+In the post content, as data attributes of the word's `<span>`: `data-retype-type` and `data-retype-hold` in milliseconds, `data-retype-caret` for the color. Nothing goes to the database besides your post. Values out of range are confined to the same limits as the filter, and a color that is not a hex, `rgb()`, `hsl()` or theme palette color is ignored.
+
+= Can a retyped word be bold or a link? =
+
+Yes, if the whole word is: the formatting stays and only the letters change. If only part of the word is formatted, the word is shown as it is, without animation, because it could not be retyped letter by letter without rebuilding your markup.
 
 = Does it work in the site editor and in templates? =
 
@@ -102,17 +118,18 @@ No. There is no telemetry, no external asset, no outgoing request, and nothing i
 
 == Screenshots ==
 
-1. Select a word, choose Retype in the formatting toolbar, and type the words to cycle through.
-2. On the site, the word is erased and retyped letter by letter, with a blinking caret.
+1. Select a word, choose Retype in the formatting toolbar, type the words to cycle through, and set the speed, the pause and the caret color for that word if you like.
+2. On the site, the word is erased and retyped letter by letter, with a blinking caret in the chosen color, and the rest of the sentence follows it.
 
 == Changelog ==
 
 = 1.0.0 =
 * First release.
-* Retype format for the block editor, with a popover to type the list of words.
+* Retype format for the block editor, with a popover to type the list of words and, for each word, its typing speed, pause and caret color.
 * Front-end animation that pauses when the tab is hidden or the word is off screen, and stays still under reduced motion.
 * Script and stylesheet loaded only on pages that use the format.
-* `retype_delays` filter for the typing, erasing and pause delays.
+* `retype_delays` filter for the default typing, erasing and pause delays.
+* Words added to the page after load are animated, and a word removed from the page stops.
 
 == Upgrade Notice ==
 
