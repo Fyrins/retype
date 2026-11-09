@@ -151,7 +151,10 @@ export function RetypeEdit( {
 						<RangeControl
 							__next40pxDefaultSize
 							__nextHasNoMarginBottom
-							label={ __( 'Pause on each word (s)', 'fyrins-retype' ) }
+							label={ __(
+								'Pause on each word (s)',
+								'fyrins-retype'
+							) }
 							help={ sprintf(
 								/* translators: %s: default pause on each word, in seconds. */
 								__( 'Default: %s s.', 'fyrins-retype' ),
