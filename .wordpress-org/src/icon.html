@@ -1,0 +1,25 @@
+<!doctype html>
+<!--
+  Source of icon-256x256.png and icon-128x128.png.
+  Rendered at 256x256 with headless Chrome, then reduced with `sips -z`.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Retype icon</title>
+<style>
+	:root { --paper: #f6f1e7; --ink: #1f1b16; --accent: #c4532d; }
+	* { margin: 0; }
+	html, body { width: 256px; height: 256px; overflow: hidden; background: var(--accent); }
+	body { display: flex; align-items: center; justify-content: center; }
+	.word {
+		display: flex; align-items: center; color: var(--paper);
+		font-family: Georgia, "Times New Roman", serif; font-size: 132px; line-height: 1;
+	}
+	.caret { width: 12px; height: 128px; margin-left: 8px; background: var(--paper); }
+</style>
+</head>
+<body>
+	<div class="word">Re<span class="caret"></span></div>
+</body>
+</html>

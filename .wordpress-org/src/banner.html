@@ -1,0 +1,45 @@
+<!doctype html>
+<!--
+  Source of banner-1544x500.png and banner-772x250.png.
+  Rendered at 1544x500 with headless Chrome, then reduced with `sips -z`.
+  See render.sh. System fonts only: nothing is fetched.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Retype banner</title>
+<style>
+	:root { --paper: #f6f1e7; --ink: #1f1b16; --muted: #6b6257; --accent: #c4532d; }
+	* { box-sizing: border-box; margin: 0; }
+	html, body { width: 1544px; height: 500px; overflow: hidden; background: var(--paper); }
+	body {
+		display: flex; justify-content: space-between; align-items: center;
+		padding: 0 128px; gap: 80px; color: var(--ink);
+		font-family: "Avenir Next", "Helvetica Neue", Arial, sans-serif;
+	}
+	.name { font-size: 132px; font-weight: 700; letter-spacing: -4px; line-height: 1; }
+	.tagline { margin-top: 24px; font-size: 34px; color: var(--muted); }
+	.card {
+		background: #fffdf8; border-radius: 28px; padding: 56px 64px;
+		box-shadow: 0 2px 0 rgba(31, 27, 22, .06), 0 24px 60px rgba(31, 27, 22, .10);
+		font-family: Georgia, "Times New Roman", serif; font-size: 58px; line-height: 1.25;
+	}
+	.typed { color: var(--accent); }
+	.caret { display: inline-block; width: 5px; height: 54px; margin-left: 4px; vertical-align: -6px; background: var(--accent); }
+	.ghost { color: transparent; }
+	.list { margin-top: 22px; font-family: Menlo, Monaco, monospace; font-size: 22px; color: var(--muted); }
+	.list b { color: var(--ink); font-weight: 600; }
+</style>
+</head>
+<body>
+	<div>
+		<div class="name">Retype</div>
+		<div class="tagline">One word, typed again and again.</div>
+	</div>
+	<div class="card">
+		<div>Made by a <span class="typed">weav</span><span class="caret"></span></div>
+		<div>down the road</div>
+		<div class="list"><b>baker</b>, potter, weaver, woodturner</div>
+	</div>
+</body>
+</html>
