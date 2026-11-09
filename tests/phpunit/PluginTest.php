@@ -107,7 +107,7 @@ class PluginTest extends WP_UnitTestCase {
 		$this->assertNotFalse( $script, 'Run npm run build before the PHP tests.' );
 		$this->assertStringEndsWith( '/build/editor.js', $script->src );
 		$this->assertContains( 'wp-rich-text', $script->deps );
-		$this->assertSame( 'retype', $script->textdomain );
+		$this->assertSame( 'fyrins-retype', $script->textdomain );
 		$this->assertSame( 1, wp_scripts()->get_data( Plugin::EDITOR_HANDLE, 'group' ) );
 	}
 

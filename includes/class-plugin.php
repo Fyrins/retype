@@ -93,7 +93,7 @@ final class Plugin {
 
 			// No path argument: translations come from the language packs that
 			// translate.wordpress.org publishes to wp-content/languages/plugins/.
-			wp_set_script_translations( self::EDITOR_HANDLE, 'retype' );
+			wp_set_script_translations( self::EDITOR_HANDLE, 'fyrins-retype' );
 
 			wp_register_style(
 				self::EDITOR_HANDLE,

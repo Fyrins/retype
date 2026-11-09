@@ -2,7 +2,7 @@
   <img src=".wordpress-org/banner-1544x500.png" alt="The name Retype and the line &quot;One word, typed again and again.&quot;, next to a card reading &quot;Made by a weav&quot; with a caret, over the word list baker, potter, weaver, woodturner.">
 </p>
 
-<h1 align="center">Retype</h1>
+<h1 align="center">Fyrins Retype</h1>
 
 <p align="center">A rich text format for the block editor: a word erases and retypes itself, letter by letter, with words from a list you type.</p>
 
@@ -144,7 +144,7 @@ npm install               # @wordpress/scripts
 npm run build             # produces build/
 ```
 
-Then symlink or copy the directory into `wp-content/plugins/retype`. The directory name matters: Plugin Check infers the text domain from it.
+Then symlink or copy the directory into `wp-content/plugins/fyrins-retype`. The directory name matters: Plugin Check infers the text domain from it.
 
 `npm run build` is required. `build/` is not in the repository, and without it the plugin activates but registers nothing.
 
@@ -165,7 +165,7 @@ Plugin Check runs on the **built package**, in a directory named exactly `retype
 
 Translations are handled on translate.wordpress.org, not in this repository's package. The plugin directory asks hosted plugins not to ship `.po`, `.mo` or JSON files, so `languages/` holds only `retype.pot`, regenerated with `npm run i18n`.
 
-`translations/retype-fr_FR.po` is a French translation kept for import on translate.wordpress.org once the plugin is approved. It is excluded from the package by `.distignore`.
+`translations/fyrins-retype-fr_FR.po` is a French translation kept for import on translate.wordpress.org once the plugin is approved. It is excluded from the package by `.distignore`.
 
 The text domain matches the slug. There is no `load_plugin_textdomain()` call, and `wp_set_script_translations()` gets no path: just-in-time loading and the language packs cover both PHP and the editor script.
 

@@ -1,5 +1,5 @@
 {
-  "name": "retype",
+  "name": "fyrins-retype",
   "version": "1.0.0",
   "description": "Retype a word in place, letter by letter, from a list you type in the block editor.",
   "scripts": {
@@ -10,7 +10,7 @@
     "format": "wp-scripts format src",
     "test:js": "wp-scripts test-unit-js",
     "packages-update": "wp-scripts packages-update",
-    "i18n": "wp i18n make-pot . languages/retype.pot --slug=retype --domain=retype --package-name=Retype --exclude=vendor,node_modules,src,dist,tests,scripts,translations,.github,.wordpress-org"
+    "i18n": "wp i18n make-pot . languages/fyrins-retype.pot --slug=fyrins-retype --domain=fyrins-retype --package-name='Fyrins Retype' --exclude=vendor,node_modules,src,dist,tests,scripts,translations,.github,.wordpress-org"
   },
   "repository": {
     "type": "git",
@@ -20,7 +20,7 @@
   "bugs": {
     "url": "https://github.com/Fyrins/retype/issues"
   },
-  "homepage": "https://wordpress.org/plugins/retype/",
+  "homepage": "https://wordpress.org/plugins/fyrins-retype/",
   "private": true,
   "devDependencies": {
     "@wordpress/block-editor": "^20.0.0",

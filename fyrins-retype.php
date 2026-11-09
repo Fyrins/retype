@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name:       Retype
+ * Plugin Name:       Fyrins Retype
  * Plugin URI:        https://github.com/Fyrins/retype
  * Description:       A rich text format for the block editor. Select a word, list a few alternatives, and on the front end the word is erased and typed again, letter by letter, cycling through the list.
  * Version:           1.0.0
@@ -10,7 +10,7 @@
  * Author URI:        https://alexandre-revire.fr
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain:       retype
+ * Text Domain:       fyrins-retype
  * Domain Path:       /languages
  *
  * @package Retype

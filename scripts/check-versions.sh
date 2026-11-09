@@ -17,7 +17,7 @@ SRC="$(cd "${1:-$PWD}" && pwd)"
 TAG="${2:-}"
 cd "$SRC"
 
-MAIN="retype.php"
+MAIN="fyrins-retype.php"
 [ -f "$MAIN" ] || { echo "No $MAIN in $SRC." >&2; exit 1; }
 
 HEADER="$(sed -n 's/^[[:space:]]*\*[[:space:]]*Version:[[:space:]]*\(.*\)$/\1/p' "$MAIN" | head -n1 | tr -d '[:space:]')"

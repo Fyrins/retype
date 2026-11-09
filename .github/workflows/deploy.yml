@@ -28,7 +28,7 @@ jobs:
     # would apply.
     environment:
       name: wordpress-org
-      url: https://wordpress.org/plugins/retype/
+      url: https://wordpress.org/plugins/fyrins-retype/
     steps:
       # Pinned to a commit SHA, like every action here: this job holds the SVN
       # credentials, and a tag is a movable reference. Full history, so the tag
@@ -90,7 +90,7 @@ jobs:
         env:
           SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
           SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
-          SLUG: retype
+          SLUG: fyrins-retype
 
       # Only after the directory has the release, so a failed publish does not
       # leave a GitHub release pointing at something that was never shipped.
@@ -116,7 +116,7 @@ jobs:
             exit 1
           fi
 
-          printf '%s\n\nOn the plugin directory: https://wordpress.org/plugins/retype/\n' \
+          printf '%s\n\nOn the plugin directory: https://wordpress.org/plugins/fyrins-retype/\n' \
             "$NOTES" > "$RUNNER_TEMP/notes.md"
 
           gh release create "$TAG_NAME" \

@@ -1,4 +1,4 @@
-=== Retype ===
+=== Fyrins Retype ===
 Contributors: fyrins
 Tags: typewriter, typing effect, text animation, rich text, block editor
 Requires at least: 6.6
