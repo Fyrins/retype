@@ -38,8 +38,8 @@ msgid ""
 "letter by letter, cycling through the list."
 msgstr ""
 "Un format de texte riche pour l’éditeur de blocs. Sélectionnez un mot, "
-"indiquez quelques variantes, et sur le site le mot s’efface puis se retape, "
-"lettre par lettre, en parcourant la liste."
+"indiquez quelques variantes, et sur l’interface publique le mot s’efface "
+"puis se retape, lettre par lettre, en parcourant la liste."
 
 #. Author of the plugin
 #: fyrins-retype.php
