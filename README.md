@@ -7,13 +7,14 @@
 <p align="center">A rich text format for the block editor: a word erases and retypes itself, letter by letter, with words from a list you type.</p>
 
 <p align="center">
+  <a href="https://wordpress.org/plugins/fyrins-retype/"><img src="https://img.shields.io/wordpress/plugin/v/fyrins-retype.svg" alt="WordPress.org plugin version"></a>
   <a href="https://github.com/Fyrins/retype/actions/workflows/ci.yml"><img src="https://github.com/Fyrins/retype/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-GPL--2.0--or--later-green" alt="License: GPL-2.0-or-later"></a>
   <img src="https://img.shields.io/badge/WordPress-6.6%2B-3858e9" alt="Requires WordPress 6.6 or later">
   <img src="https://img.shields.io/badge/PHP-7.4%2B-777bb4" alt="Requires PHP 7.4 or later">
 </p>
 
-> Submitted to the WordPress.org plugin directory, awaiting review.
+> Available in the WordPress.org plugin directory: [wordpress.org/plugins/fyrins-retype](https://wordpress.org/plugins/fyrins-retype/).
 
 Select a word in a heading or a paragraph, choose **Retype** in the "More" dropdown of the formatting toolbar, type a few words separated by commas, and apply. The popover can also set, for that word only, the delay per typed letter, the pause on each word and the caret color, taken from the theme palette. On the front end the selected word is shown first, then erased and retyped with each word of the list, in a loop.
 
@@ -134,7 +135,7 @@ When the filter changes the delays, the editor script gets the same global, so t
 
 ## Installing from this repository
 
-The release on wordpress.org will be the supported install path. To run the development copy:
+The release on [wordpress.org](https://wordpress.org/plugins/fyrins-retype/) is the supported install path. To run the development copy:
 
 ```bash
 git clone git@github.com:Fyrins/retype.git
