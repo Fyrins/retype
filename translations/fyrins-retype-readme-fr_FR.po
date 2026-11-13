@@ -1,0 +1,483 @@
+# Translation of Plugins - Fyrins Retype - Stable Readme (latest release) in French (France)
+# This file is distributed under the same license as the Plugins - Fyrins Retype - Stable Readme (latest release) package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Plugins - Fyrins Retype - Stable Readme (latest release)\n"
+"PO-Revision-Date: +0000\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: GlotPress/4.1.0\n"
+
+#. Short description.
+#, gp-priority: high
+msgid ""
+"Select a word in the block editor, list a few others, and on your site the "
+"word erases and retypes itself, letter by letter, in a loop."
+msgstr ""
+"Sélectionnez un mot dans l’éditeur de blocs, listez-en quelques autres, et "
+"sur votre site le mot s’efface puis se retape, lettre par lettre, en boucle."
+
+#. Plugin name.
+#, gp-priority: high
+msgid "Fyrins Retype"
+msgstr "Fyrins Retype"
+
+#. Found in faq paragraph.
+msgid ""
+"No. There is no telemetry, no external asset, no outgoing request, and "
+"nothing is written to your database."
+msgstr ""
+"Non. Aucune télémétrie, aucune ressource externe, aucune requête sortante, "
+"et rien n’est écrit dans votre base de données."
+
+#. Found in faq paragraph.
+msgid ""
+"The animated word does not wrap, so a word wider than the screen is clipped."
+" Keep the words short, especially in large headings."
+msgstr ""
+"Le mot animé ne passe pas à la ligne : un mot plus large que l’écran est "
+"donc coupé. Gardez des mots courts, surtout dans les grands titres."
+
+#. Found in faq paragraph.
+msgid ""
+"The format is registered for every rich text field of the block editor, so "
+"the site editor offers it too, in headings and paragraphs of templates and "
+"patterns. On the front end, any rendered block that contains it loads the "
+"script."
+msgstr ""
+"Le format est disponible dans tous les champs de texte enrichi de l’éditeur "
+"de blocs : l’éditeur de site le propose donc aussi, dans les titres et "
+"paragraphes des modèles et des compositions. Sur l’interface publique, tout "
+"bloc affiché qui le contient charge le script."
+
+#. Found in faq paragraph.
+msgid ""
+"Yes, if the whole word is: the formatting stays and only the letters change."
+" If only part of the word is formatted, the word is shown as it is, without "
+"animation, because it could not be retyped letter by letter without "
+"rebuilding your markup."
+msgstr ""
+"Oui, si le mot l’est en entier : la mise en forme reste et seules les "
+"lettres changent. Si une partie du mot seulement est mise en forme, le mot "
+"s’affiche tel quel, sans animation, car il ne pourrait pas être retapé "
+"lettre par lettre sans reconstruire votre balisage."
+
+#. Found in faq paragraph.
+msgid ""
+"In the post content, as data attributes of the word's "
+"<code>&lt;span&gt;</code>: <code>data-retype-type</code> and <code>data-"
+"retype-hold</code> in milliseconds, <code>data-retype-caret</code> for the "
+"color. Nothing goes to the database besides your post. Values out of range "
+"are confined to the same limits as the filter, and a color that is not a "
+"hex, <code>rgb()</code>, <code>hsl()</code> or theme palette color is "
+"ignored."
+msgstr ""
+"Dans le contenu de la publication, sous forme d’attributs data du "
+"<code>&lt;span&gt;</code> du mot : <code>data-retype-type</code> et "
+"<code>data-retype-hold</code> en millisecondes, <code>data-retype-"
+"caret</code> pour la couleur. Rien d’autre que votre publication n’est "
+"enregistré dans la base de données. Les valeurs hors limites sont ramenées "
+"aux mêmes bornes que celles du filtre, et une couleur qui n’est ni "
+"hexadécimale, ni <code>rgb()</code>, ni <code>hsl()</code>, ni une couleur "
+"de la palette du thème est ignorée."
+
+#. Found in faq paragraph.
+msgid ""
+"Yes. The popover offers the colors of your theme's palette. A palette color "
+"is saved as a reference to the theme color, so the caret follows it if the "
+"theme changes it. Clear the color and the caret takes the color of the text."
+msgstr ""
+"Oui. La fenêtre contextuelle propose les couleurs de la palette de votre "
+"thème. Une couleur de la palette est enregistrée comme une référence à la "
+"couleur du thème : le curseur la suit donc si le thème la modifie. Effacez "
+"la couleur et le curseur prend la couleur du texte."
+
+#. Found in faq paragraph.
+msgid ""
+"A script of your own can also set <code>window.retypeDelays</code> before "
+"the plugin's script runs, with the same keys and the same limits. The "
+"settings of a word in the popover take precedence over both."
+msgstr ""
+"Un script de votre cru peut aussi définir <code>window.retypeDelays</code> "
+"avant l’exécution du script de l’extension, avec les mêmes clés et les mêmes"
+" bornes. Les réglages d’un mot dans la fenêtre contextuelle priment sur les "
+"deux."
+
+#. Found in faq paragraph.
+msgid ""
+"Missing keys keep their default. <code>type</code> and <code>erase</code> "
+"are kept between 10 and 2000, <code>hold</code> between 200 and 60000, and "
+"anything that is not a number falls back to the default."
+msgstr ""
+"Les clés absentes gardent leur valeur par défaut. <code>type</code> et "
+"<code>erase</code> sont maintenus entre 10 et 2000, <code>hold</code> entre "
+"200 et 60000, et tout ce qui n’est pas un nombre revient à la valeur par "
+"défaut."
+
+#. Found in faq paragraph.
+msgid ""
+"For the whole site, use the <code>retype_delays</code> filter, in your "
+"theme's <code>functions.php</code> or a small plugin of your own. Values are"
+" in milliseconds:"
+msgstr ""
+"Pour tout le site, utilisez le filtre <code>retype_delays</code>, dans le "
+"<code>functions.php</code> de votre thème ou dans une petite extension à "
+"vous. Les valeurs sont en millisecondes :"
+
+#. Found in faq paragraph.
+msgid ""
+"For one word, in the popover: \"Typing delay per letter\" is in "
+"milliseconds, lower is faster, and erasing speeds up or slows down in "
+"proportion. \"Pause on each word\" is in seconds. Reset brings a setting "
+"back to the site default."
+msgstr ""
+"Pour un mot, dans la fenêtre contextuelle : « Délai de frappe par lettre » "
+"est en millisecondes ; plus la valeur est basse, plus la frappe est rapide, "
+"et l’effacement accélère ou ralentit en proportion. « Pause sur chaque mot »"
+" est en secondes. Réinitialiser ramène un réglage à la valeur par défaut du "
+"site."
+
+#. Found in faq paragraph.
+msgid ""
+"The one you selected in the editor. It is also the word screen readers read "
+"and the word shown to visitors who prefer reduced motion, so pick the one "
+"that makes the sentence work on its own."
+msgstr ""
+"Celui que vous avez sélectionné dans l’éditeur. C’est aussi le mot que "
+"lisent les lecteurs d’écran et celui qu’on montre aux internautes qui "
+"préfèrent réduire les animations : choisissez celui qui rend la phrase "
+"complète à lui seul."
+
+#. Found in faq paragraph.
+msgid ""
+"Click inside the word and choose Retype again. The popover opens with the "
+"current list. Remove format turns the word back into ordinary text. An empty"
+" list does the same."
+msgstr ""
+"Cliquez dans le mot et choisissez à nouveau Retype. La fenêtre contextuelle "
+"s’ouvre avec la liste actuelle. Retirer le format rend au mot son statut de "
+"texte ordinaire. Une liste vide fait de même."
+
+#. Found in faq header.
+msgid "Does it phone home?"
+msgstr "L’extension communique-t-elle avec un serveur externe ?"
+
+#. Found in faq header.
+msgid "The word is cut off on small screens."
+msgstr "Le mot est coupé sur les petits écrans."
+
+#. Found in faq header.
+msgid "Does it work in the site editor and in templates?"
+msgstr ""
+"Est-ce que cela fonctionne dans l’éditeur de site et dans les modèles ?"
+
+#. Found in faq header.
+msgid "Can a retyped word be bold or a link?"
+msgstr "Un mot retapé peut-il être en gras ou être un lien ?"
+
+#. Found in faq header.
+msgid "Where are the settings of a word stored?"
+msgstr "Où sont enregistrés les réglages d’un mot ?"
+
+#. Found in faq header.
+msgid "Can the caret have its own color?"
+msgstr "Le curseur peut-il avoir sa propre couleur ?"
+
+#. Found in faq header.
+msgid "Can I change the speed?"
+msgstr "Puis-je modifier la vitesse ?"
+
+#. Found in faq header.
+msgid "Which word is shown first?"
+msgstr "Quel mot s’affiche en premier ?"
+
+#. Found in faq header.
+msgid "How do I edit the list of words?"
+msgstr "Comment modifier la liste de mots ?"
+
+#. Found in installation paragraph.
+msgid "There is nothing to configure afterwards."
+msgstr "Il n’y a rien à configurer ensuite."
+
+#. Found in installation list item.
+msgid ""
+"Edit a post, select a word in a heading or a paragraph, open the \"More\" "
+"dropdown of the formatting toolbar, and choose Retype."
+msgstr ""
+"Modifiez une publication, sélectionnez un mot dans un titre ou un "
+"paragraphe, ouvrez le menu déroulant « Plus » de la barre d’outils de mise "
+"en forme et choisissez Retype."
+
+#. Found in installation list item.
+msgid "Install and activate it."
+msgstr "Installez-la et activez-la."
+
+#. Found in installation list item.
+msgid ""
+"In your admin, go to Plugins, then Add New Plugin, and search for Retype."
+msgstr ""
+"Dans votre administration, allez dans Extensions, puis Ajouter une "
+"extension, et recherchez Retype."
+
+#. Found in description paragraph.
+msgid "To reproduce the shipped files:"
+msgstr "Pour reproduire les fichiers livrés :"
+
+#. Found in description paragraph.
+msgid "https://github.com/Fyrins/retype"
+msgstr "https://github.com/Fyrins/retype"
+
+#. Found in description paragraph.
+msgid ""
+"The scripts and stylesheets shipped in <code>build/</code> are compiled from"
+" the <code>src/</code> directory of the public repository, with <a "
+"href=\"https://www.npmjs.com/package/@wordpress/scripts\">@wordpress/scripts</a>,"
+" the build tool maintained by the WordPress project:"
+msgstr ""
+"Les scripts et feuilles de style livrés dans <code>build/</code> sont "
+"compilés depuis le répertoire <code>src/</code> du dépôt public, avec <a "
+"href=\"https://www.npmjs.com/package/@wordpress/scripts\">@wordpress/scripts</a>,"
+" l’outil de compilation maintenu par le projet WordPress :"
+
+#. Found in description paragraph.
+msgid "<strong>Source code and build</strong>"
+msgstr "<strong>Code source et compilation</strong>"
+
+#. Found in description paragraph.
+msgid ""
+"Each word can have its own typing speed, pause and caret color, set in the "
+"popover. Words without settings follow the site defaults, which a developer "
+"can change with the <code>retype_delays</code> filter. See the FAQ."
+msgstr ""
+"Chaque mot peut avoir sa propre vitesse de frappe, sa pause et sa couleur de"
+" curseur, réglées dans la fenêtre contextuelle. Les mots sans réglage "
+"suivent les valeurs par défaut du site, qu’un développeur ou une "
+"développeuse peut modifier avec le filtre <code>retype_delays</code>. "
+"Consultez la FAQ."
+
+#. Found in description paragraph.
+msgid "<strong>Timing and caret color</strong>"
+msgstr "<strong>Rythme et couleur du curseur</strong>"
+
+#. Found in description paragraph.
+msgid ""
+"The animation loops for as long as the word is on screen, and the plugin "
+"offers no pause button. Moving content that starts on its own is something "
+"to use sparingly: one animated word per page, short words, and not in the "
+"middle of text people need to read. Whether it fits your site and its "
+"obligations is your call."
+msgstr ""
+"L’animation tourne en boucle tant que le mot est à l’écran, et l’extension "
+"ne propose pas de bouton pause. Un contenu animé qui démarre tout seul "
+"s’utilise avec parcimonie : un mot animé par page, des mots courts, et pas "
+"au milieu d’un texte que les gens ont besoin de lire. C’est à vous de juger "
+"s’il convient à votre site et à ses obligations."
+
+#. Found in description paragraph.
+msgid ""
+"No plugin can make a site accessible on its own, and this one does not claim"
+" to. What it does, within its scope:"
+msgstr ""
+"Aucune extension ne peut à elle seule rendre un site accessible, et celle-ci"
+" ne le prétend pas. Voici ce qu’elle fait, dans son périmètre :"
+
+#. Found in description paragraph.
+msgid "<strong>Accessibility</strong>"
+msgstr "<strong>Accessibilité</strong>"
+
+#. Found in description paragraph.
+msgid "<strong>How it behaves</strong>"
+msgstr "<strong>Comportement</strong>"
+
+#. Found in description paragraph.
+msgid ""
+"There is no settings page, no option in your database, no account and no "
+"outgoing request."
+msgstr ""
+"Aucune page de réglages, aucune option dans votre base de données, aucun "
+"compte et aucune requête sortante."
+
+#. Found in description paragraph.
+msgid ""
+"On the front end the selected word is shown first. After a pause it is "
+"erased letter by letter, the next word of the list is typed in its place, "
+"and the cycle goes on. A thin caret blinks at the end of the word while it "
+"types."
+msgstr ""
+"Sur l’interface publique, le mot sélectionné s’affiche en premier. Après une"
+" pause, il s’efface lettre par lettre, le mot suivant de la liste se tape à "
+"sa place, et le cycle continue. Un curseur fin clignote au bout du mot "
+"pendant la frappe."
+
+#. Found in description paragraph.
+msgid ""
+"Retype adds one entry to the formatting toolbar of the block editor, in the "
+"\"More\" dropdown next to Highlight and Inline code. Select a word in a "
+"heading or a paragraph, choose Retype, type a few words separated by commas,"
+" and apply. The same popover can set, for that word only, the typing speed, "
+"the pause on each word and the color of the caret."
+msgstr ""
+"Retype ajoute une entrée à la barre d’outils de mise en forme de l’éditeur "
+"de blocs, dans le menu déroulant « Plus », à côté de Surligner et Code en "
+"ligne. Sélectionnez un mot dans un titre ou un paragraphe, choisissez "
+"Retype, tapez quelques mots séparés par des virgules et appliquez. La même "
+"fenêtre contextuelle permet de régler, pour ce mot uniquement, la vitesse de"
+" frappe, la pause sur chaque mot et la couleur du curseur."
+
+#. Found in description paragraph.
+msgid "https://www.youtube.com/watch?v=909NcozD1TU"
+msgstr "https://www.youtube.com/watch?v=909NcozD1TU"
+
+#. Found in description list item.
+msgid "Without JavaScript, the original word is shown as plain text."
+msgstr "Sans JavaScript, le mot d’origine s’affiche en texte simple."
+
+#. Found in description list item.
+msgid ""
+"Visitors who ask their system to reduce motion see the original word, with "
+"no animation and no blinking caret. If they turn the setting on while "
+"reading, the animation stops and the original word comes back."
+msgstr ""
+"Les internautes qui demandent à leur système de réduire les animations "
+"voient le mot d’origine, sans animation ni curseur clignotant. Si ce réglage"
+" est activé en cours de lecture, l’animation s’arrête et le mot d’origine "
+"revient."
+
+#. Found in description list item.
+msgid ""
+"Screen readers are given the original word, once. The letters being typed "
+"are hidden from them, so a screen reader user hears a normal sentence rather"
+" than a stream of changes."
+msgstr ""
+"Les lecteurs d’écran reçoivent le mot d’origine, une seule fois. Les lettres"
+" en cours de frappe leur sont masquées : la personne qui utilise un lecteur "
+"d’écran entend une phrase normale plutôt qu’une suite de modifications."
+
+#. Found in description list item.
+msgid ""
+"The saved markup is a plain <code>&lt;span&gt;</code> with a class and a "
+"data attribute. If you deactivate the plugin, the selected word simply stays"
+" in the sentence, and no block is invalidated."
+msgstr ""
+"Le balisage enregistré est un simple <code>&lt;span&gt;</code> avec une "
+"classe et un attribut data. Si vous désactivez l’extension, le mot "
+"sélectionné reste simplement dans la phrase, et aucun bloc n’est invalidé."
+
+#. Found in description list item.
+msgid "The words are inserted as text, never as HTML."
+msgstr "Les mots sont insérés comme du texte, jamais comme du HTML."
+
+#. Found in description list item.
+msgid ""
+"Nothing loads on pages that do not use the format. Where it is used, the "
+"front end gets a script of about 5 KB, loaded with <code>defer</code> in the"
+" footer, and a stylesheet under 1 KB."
+msgstr ""
+"Rien ne se charge sur les pages qui n’utilisent pas le format. Là où il est "
+"utilisé, l’interface publique reçoit un script d’environ 5 Ko, chargé avec "
+"<code>defer</code> dans le pied de page, et une feuille de style de moins de"
+" 1 Ko."
+
+#. Found in description list item.
+msgid ""
+"The animation pauses when the browser tab is hidden or the word is scrolled "
+"out of view, and resumes when it comes back."
+msgstr ""
+"L’animation se met en pause quand l’onglet du navigateur est masqué ou que "
+"le mot sort de l’écran au défilement, et reprend quand il revient."
+
+#. Found in description list item.
+msgid ""
+"Words added to the page after it loads, by a \"load more\" button for "
+"instance, are animated too."
+msgstr ""
+"Les mots ajoutés à la page après son chargement, par un bouton « Charger "
+"plus » par exemple, sont aussi animés."
+
+#. Found in description list item.
+msgid ""
+"A word that is entirely bold, italic or a link keeps that formatting while "
+"it is retyped. A word formatted only in part is left still."
+msgstr ""
+"Un mot entièrement en gras, en italique ou en lien garde cette mise en forme"
+" pendant qu’il est retapé. Un mot mis en forme en partie seulement reste "
+"immobile."
+
+#. Found in description list item.
+msgid ""
+"The word takes its real width as it is typed, so the text that follows it "
+"moves along with the writing."
+msgstr ""
+"Le mot prend sa largeur réelle au fil de la frappe : le texte qui le suit se"
+" déplace donc avec l’écriture."
+
+#. Screenshot description.
+msgid ""
+"On the site, the word is erased and retyped letter by letter, with a "
+"blinking caret in the chosen color, and the rest of the sentence follows it."
+msgstr ""
+"Sur le site, le mot s’efface et se retape lettre par lettre, avec un curseur"
+" clignotant de la couleur choisie, et le reste de la phrase le suit."
+
+#. Screenshot description.
+msgid ""
+"Select a word, choose Retype in the formatting toolbar, type the words to "
+"cycle through, and set the speed, the pause and the caret color for that "
+"word if you like."
+msgstr ""
+"Sélectionnez un mot, choisissez Retype dans la barre d’outils de mise en "
+"forme, tapez les mots à faire défiler, et réglez si vous le souhaitez la "
+"vitesse, la pause et la couleur du curseur pour ce mot."
+
+#. Found in changelog list item.
+#, gp-priority: low
+msgid ""
+"Words added to the page after load are animated, and a word removed from the"
+" page stops."
+msgstr ""
+"Les mots ajoutés à la page après le chargement sont animés, et un mot retiré"
+" de la page s’arrête."
+
+#. Found in changelog list item.
+#, gp-priority: low
+msgid ""
+"<code>retype_delays</code> filter for the default typing, erasing and pause "
+"delays."
+msgstr ""
+"Filtre <code>retype_delays</code> pour les délais par défaut de frappe, "
+"d’effacement et de pause."
+
+#. Found in changelog list item.
+#, gp-priority: low
+msgid "Script and stylesheet loaded only on pages that use the format."
+msgstr ""
+"Script et feuille de style chargés uniquement sur les pages qui utilisent le"
+" format."
+
+#. Found in changelog list item.
+#, gp-priority: low
+msgid ""
+"Front-end animation that pauses when the tab is hidden or the word is off "
+"screen, and stays still under reduced motion."
+msgstr ""
+"Animation sur l’interface publique, qui se met en pause quand l’onglet est "
+"masqué ou que le mot est hors de l’écran, et reste immobile quand la "
+"réduction des animations est activée."
+
+#. Found in changelog list item.
+#, gp-priority: low
+msgid ""
+"Retype format for the block editor, with a popover to type the list of words"
+" and, for each word, its typing speed, pause and caret color."
+msgstr ""
+"Format Retype pour l’éditeur de blocs, avec une fenêtre contextuelle pour "
+"saisir la liste de mots et, pour chaque mot, sa vitesse de frappe, sa pause "
+"et la couleur de son curseur."
+
+#. Found in changelog list item.
+#, gp-priority: low
+msgid "First release."
+msgstr "Première version."
