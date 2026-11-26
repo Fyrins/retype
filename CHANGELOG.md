@@ -9,6 +9,13 @@ plugin directory reads.
 
 ## [Unreleased]
 
+## [1.0.1] - 2026-11-26
+
+### Changed
+
+- Tested up to WordPress 7.2. The KSES test compares attributes regardless of
+  order, since 7.2 rebuilds KSES on the HTML API and sorts them.
+
 ## [1.0.0] - 2026-11-09
 
 First release.
@@ -67,5 +74,6 @@ First release.
   Sources and build instructions are in the repository, linked from
   `readme.txt`.
 
-[Unreleased]: https://github.com/Fyrins/retype/compare/v1.0.0...HEAD
+[Unreleased]: https://github.com/Fyrins/retype/compare/v1.0.1...HEAD
+[1.0.1]: https://github.com/Fyrins/retype/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/Fyrins/retype/releases/tag/v1.0.0

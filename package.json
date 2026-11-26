@@ -1,6 +1,6 @@
 {
   "name": "fyrins-retype",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Retype a word in place, letter by letter, from a list you type in the block editor.",
   "scripts": {
     "build": "wp-scripts build",

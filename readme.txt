@@ -2,9 +2,9 @@
 Contributors: fyrins
 Tags: typewriter, typing effect, text animation, rich text, block editor
 Requires at least: 6.6
-Tested up to: 7.1
+Tested up to: 7.2
 Requires PHP: 7.4
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -125,6 +125,9 @@ No. There is no telemetry, no external asset, no outgoing request, and nothing i
 
 == Changelog ==
 
+= 1.0.1 =
+* Tested up to WordPress 7.2.
+
 = 1.0.0 =
 * First release.
 * Retype format for the block editor, with a popover to type the list of words and, for each word, its typing speed, pause and caret color.
@@ -134,6 +137,9 @@ No. There is no telemetry, no external asset, no outgoing request, and nothing i
 * Words added to the page after load are animated, and a word removed from the page stops.
 
 == Upgrade Notice ==
+
+= 1.0.1 =
+Tested up to WordPress 7.2. No functional change.
 
 = 1.0.0 =
 First release.
