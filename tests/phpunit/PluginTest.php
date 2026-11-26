@@ -66,6 +66,30 @@ class PluginTest extends WP_UnitTestCase {
 	}
 
 	/**
+	 * Markup reduced to what a browser sees: each tag with its attributes,
+	 * order ignored, and the text. KSES rebuilt on the HTML API (WordPress
+	 * 7.2) sorts attributes, which changes nothing for the format.
+	 *
+	 * @param string $html Markup.
+	 * @return array
+	 */
+	private function markup( $html ) {
+		$tags  = array();
+		$probe = new \WP_HTML_Tag_Processor( $html );
+
+		while ( $probe->next_tag( array( 'tag_closers' => 'visit' ) ) ) {
+			$attributes = array();
+			foreach ( (array) $probe->get_attribute_names_with_prefix( '' ) as $name ) {
+				$attributes[ $name ] = $probe->get_attribute( $name );
+			}
+			ksort( $attributes );
+			$tags[] = array( ( $probe->is_tag_closer() ? '/' : '' ) . $probe->get_tag(), $attributes );
+		}
+
+		return array( $tags, wp_strip_all_tags( $html ) );
+	}
+
+	/**
 	 * Whether a hook holds a callback bound to an instance of Plugin.
 	 *
 	 * @param string $hook   Hook name.
@@ -239,12 +263,12 @@ class PluginTest extends WP_UnitTestCase {
 	 * word included.
 	 */
 	public function test_the_saved_markup_survives_kses() {
-		$this->assertSame( self::SPAN, wp_kses_post( self::SPAN ) );
+		$this->assertSame( $this->markup( self::SPAN ), $this->markup( wp_kses_post( self::SPAN ) ) );
 
-		$this->assertSame( self::SPAN_WITH_SETTINGS, wp_kses_post( self::SPAN_WITH_SETTINGS ) );
+		$this->assertSame( $this->markup( self::SPAN_WITH_SETTINGS ), $this->markup( wp_kses_post( self::SPAN_WITH_SETTINGS ) ) );
 
 		$custom = '<span class="retype" data-retype-words="a" data-retype-caret="rgb(255 0 0 / 50%)">b</span>';
-		$this->assertSame( $custom, wp_kses_post( $custom ) );
+		$this->assertSame( $this->markup( $custom ), $this->markup( wp_kses_post( $custom ) ) );
 	}
 
 	/**

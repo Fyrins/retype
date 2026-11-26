@@ -3,7 +3,7 @@
  * Plugin Name:       Fyrins Retype
  * Plugin URI:        https://github.com/Fyrins/retype
  * Description:       A rich text format for the block editor. Select a word, list a few alternatives, and on the front end the word is erased and typed again, letter by letter, cycling through the list.
- * Version:           1.0.0
+ * Version:           1.0.1
  * Requires at least: 6.6
  * Requires PHP:      7.4
  * Author:            Alexandre Revire
@@ -40,7 +40,7 @@ defined( 'ABSPATH' ) || exit;
  * Plugin version. Kept in step with the plugin header, the readme Stable tag
  * and the Git tag; the deploy workflow refuses to publish when they diverge.
  */
-define( 'RETYPE_VERSION', '1.0.0' );
+define( 'RETYPE_VERSION', '1.0.1' );
 
 /**
  * Absolute path to this file, used to resolve asset URLs.
